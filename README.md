@@ -1,130 +1,169 @@
-<h1>Sadržaj</h1>
+# Codedberries
 
+Codedberries is a university team project management web application built with Angular and .NET. The goal of the application is to help project managers and team members organize projects, manage tasks, assign responsibilities, follow progress, and collaborate more efficiently.
 
-- [Razvojna verzija](#razvojna-verzija)
-    - [Instalacije](#instalacije)
-    - [Pokretanje](#pokretanje)
-- [Produkciona verzija](#produkciona-verzija)
-    - [1. Pokretanje u aktivnom terminalu](#1-pokretanje-u-aktivnom-terminalu)
-    - [2. Pokretanje u pozadini (komanda)](#2-pokretanje-u-pozadini-komanda)
-      - [Zaustavljanje alata pokrenutog u pozadini](#zaustavljanje-alata-pokrenutog-u-pozadini)
-- [Kredencijali svih tipova korisnika u sistemu](#kredencijali)
-    
+The project was inspired by tools such as Asana and Jira, and was developed as a student team project.
 
-**Aplikacja se nalazi na: http://softeng.pmf.kg.ac.rs:10123/**
+## Project Overview
 
-# Razvojna verzija
+The application is divided into two main parts:
 
-### Instalacije
-Radi pokretanja web aplikacije neophodno je instalirati sledeće:<br> <br> 
+- Frontend: Angular application located in `Src/FE/angular-app`
+- Backend: ASP.NET Core Web API located in `Src/BE/Codedberries/Codedberries`
 
-**Node.js i npm** - Mogu se preuzeti sa [zvaničnog Node.js sajta](https://nodejs.org/en). Kako bi proverili da li je instaliran npm, menadžer paketa za Node.js, u terminalu ukucati komandu `npm` . Ukoliko se vrati greška da ova komanda ne postoji istu instalirati komandom u terminalu `npm install`. 
+The backend uses SQLite through Entity Framework Core, exposes REST API endpoints, enables Swagger in development, and includes SignalR support for real-time features.
 
-**Angular CLI** - Instalirati pomoću npm komande `npm install -g @angular/cli`.
+## Main Features
 
-**.NET Core SDK** - Preuzeti sa [sajta](https://dotnet.microsoft.com/en-us/download) i instalirati.
+- User authentication and session handling
+- Project creation and project overview
+- Task creation, editing, filtering, and tracking
+- Task dependencies
+- Milestones
+- Project roles and permissions
+- Team member assignment and collaboration
+- Comments and activity tracking
+- Priorities, statuses, and categories
+- User invitations
+- Progress tracking and reporting
 
+## Technology Stack
 
-### Pokretanje
+- Angular 17
+- Angular Material
+- .NET 8 / ASP.NET Core Web API
+- Entity Framework Core
+- SQLite
+- SignalR
+- Docker and Docker Compose
 
-Klonirati repoziturijum aplikacije sa gitlaba sledećom komandom u terminalu: 
-`git clone https://gitlab.pmf.kg.ac.rs/si2024/codedberries.git`
+## Repository
 
+Clone the project from GitHub:
 
-**Pokretanje backenda**
-Folder iz koga je izvršeno kloniranje će sadržati kloniran repozitorijum pod nazivom *Codedberries*. Kako bi se pokrenuo backend aplikacije treba se locirati u terminalu na folder u kome je Program.cs sledećom komandom: 
-`cd Codedberries/Src/BE/Codedberries/Codedberries`
+```bash
+git clone https://github.com/theaksaa/codedberries.git
+```
 
-Za pokretanje razvojne verzije otucati:
-`git checkout dev`
+## Project Structure
 
+```text
+codedberries/
+|-- Src/
+|   |-- FE/angular-app          # Angular frontend
+|   |-- BE/Codedberries/...     # .NET backend
+|   `-- docker-compose.yaml     # Container setup
+|-- Documentation/              # Additional project documentation
+|-- Sandbox/                    # Experimental/team work folders
+`-- Uputstvo za upotrebu alata.pdf
+```
 
-Sa ove lokacije pokrenuti backend komandom:
-`dotnet run`
+## Requirements
 
-Build aplikacije koji se dešava pri pozivu ove komande može malo potrajati. Kada bude gotov kao prvi od info odgovora trebalo bi
- da bude naznačeno na kom portu radi backend, kao što je to prikazano na slici ispod.
+To run the project locally, install:
 
-![slika terminala psole komande *dotnent run*](images/dotnetRun.JPG)
+- Node.js and npm
+- Angular CLI
+- .NET 8 SDK
 
-Radi pregleda endpointa razvijenih na bekendu, ovim načinom pokretanja se pokreće i *Swagger* za testiranje API-ja. Njemu se može pristupiti dodavanje */swagger* na adresu koju vrati `dotnet run` komanda, na gore navedenom primeru to bi bilo: *http://localhost:5285/swagger*.
+Angular CLI can be installed with:
 
-**Pokretanje frontenda**
-Otvoriti jos jedan terminal te se i u njemu locirati na folder u koji je kloniran repozitorijum. 
-To možete jednostavno uraditi otvaranjem foldera u kome je repozitorijum upotrebom File explorer-a. Kada se nalazite u njemu, na desni klik trebalo bi da se otvori opcija  *Open in terminal*. Klikom na nju će se otvoriti terminal prozor sa odgovarajući radnim direktorijumom.
-Pristupite angular-app folderu komandom:
-`cd Codedberries/Src/FE/angular-app`
+```bash
+npm install -g @angular/cli
+```
 
-Za pokretanje razvojne verzije otucati:
-`git checkout dev`
+## Running the Project Locally
 
-Kako bi se pokrenuo frontend otkucati komandu:
-`ng serve`
+The easiest way to run the project for development is to start the backend and frontend separately in two terminals.
 
-Kao odgovor na ovu komandu, dobija se port na kome se nalazi aplikacija (podrazumevani port angular aplikacija 4200). Odgovor na navedenu komandu bi trebalo da izgleda ovako:
-    
-![slika terminala psole komande *dotnent run*](images/ngServe.JPG)
+### 1. Start the backend
 
-Ukoliko je i bekend prethodno uspešno pokrenut, otvaranjem adrese frontenda koja je dobijena bi trebalo da je alat uspešno pokrenut.
+Open a terminal in:
 
-<!---------------------------------------------------------------------------------------------------------------------->
+```bash
+Src/BE/Codedberries/Codedberries
+```
 
-# Produkciona verzija
+Run:
 
-Za pokretanje produkcione verzije potrebno iz terminala web servera *softeng.pmf.kg.ac.rs* je locirati se u folder *codedberries*. Proveriti da li je to uspešno urađeno komanom `pwd` u terminalu web servera koja bi trebalo da vrati:
-![pwd](images/pwd.JPG)
+```bash
+dotnet restore
+dotnet run
+```
 
-Dva korisna načina za pokretanje produkcione verzije su:
+Notes:
 
-### 1. Pokretanje u aktivnom terminalu
+- The backend runs in development mode with Swagger enabled.
+- Based on the current frontend configuration, the local API is expected at `http://localhost:5285/api`.
+- Swagger is available at:
 
-Kada se alat pokrene na ovaj način, biće aktivan u trajanju sesije u terminalu.
+```text
+http://localhost:5285/swagger
+```
 
-**Bekend** - Locirati se u sledeći folder:`cd BE/out` i pokrenuti bekend komandom: `dotnet Codedberries.dll --urls=http://0.0.0.0:10122`.
+### 2. Start the frontend
 
-**Frontend** - Pokrenuti još jedan terminal i locirati se na folder *codedberries* kako je gore navedeno. Locirati na folder: `cd FE/dist` i pokrenuti frontend komandom: `python3 error_script.py`.
+Open another terminal in:
 
-Kada su frontend i bekend pokrenuti, otvoriti adresu: 
-    
-### 2. Pokretanje u pozadini (komanda)
-Kada se alat pokrene na ovaj način, alat radi u pozadini odnosno ostaje aktivan i kada se zatvori terminal. 
+```bash
+Src/FE/angular-app
+```
 
-**Bekend** - Locirati se u sledeći folder:`cd BE/out` i pokrenuti bekend komandom:
- `nohup dotnet Codedberries.dll --urls=http://0.0.0.0:10122  > /dev/null 2>&1 &`. 
- 
- Odogovr na ovu komandu je pid procesa bekenda:
- ![pid pokrenutog bekenda](images/detachedBE.JPG)
+Run:
 
-**Frontend** - Iz istog terminala se locirati se na folder *codedberries* kako je navedeno na početku. Locirati na folder: `cd FE/dist` i pokrenuti frontend komandom: 
-`nohup python3  error_script.py > /dev/null 2>&1 &`.
+```bash
+npm install
+ng serve
+```
 
-Kao i kod bekenda dogovr na komandu je pid procesa frontenda.
+The frontend runs by default at:
 
-#### Zaustavljanje alata pokrenutog u pozadini
-Ukoliko se ne sačuvaju negde pidovi proces frontnda i bekenda do njih se može doći sledećim komandama:
+```text
+http://localhost:4200
+```
 
+## Local Configuration
 
-**Bekend** - `ps aux | grep Codedberries.dll`. Dobije se:
- ![pid pokrenutog bekenda](images/killBE.JPG)
- Bekend se zaustavlja  sa `kill <PID>` odnonso na ovom primeru `kill 997636`.
+The current development configuration in the repository points to:
 
- **Frontend** - `ps aux | grep "python3 -m http.server 10123"
-`. Dobije se:
- ![pid pokrenutog frontenda](images/killFe.JPG)
- Frontend se zaustavlja sa `kill <PID>` odnonso na ovom primeru `kill 995490`.
+- Frontend: `http://localhost:4200`
+- Backend API: `http://localhost:5285/api`
 
+Relevant files:
 
-# Kredencijali svih tipova korisnika u sistemu
+- `Src/FE/angular-app/src/environments/environment.development.ts`
+- `Src/BE/Codedberries/Codedberries/appsettings.Development.json`
 
-**Super user** - username: petar.simic@gmail.com  password: password1
-**Project owner**  - username: zoran.gajic@gmail.com  password: password3
-**Project manager**  - username: lazar.milojevic@gmail.com  password: password3
-**Employee**  - username: ana.dacic@gmail.com password: password3
-**Viewer**  - username: mina.markovic@gmail.com password: password3
+## Running with Docker
 
+The repository also contains a Docker Compose file:
 
+```text
+Src/docker-compose.yaml
+```
 
+You can build and start the project from the `Src` folder with:
 
+```bash
+docker compose up --build
+```
 
+If needed, adjust exposed ports and environment-specific settings before using containers in your own environment.
 
- Za oba načina pokretanja alat se otvara na adresi: *http://softeng.pmf.kg.ac.rs:10123*.
+## Documentation
+
+Additional user documentation is available here:
+
+- [Uputstvo za upotrebu alata.pdf](https://github.com/theaksaa/codedberries/blob/master/Uputstvo%20za%20upotrebu%20alata.pdf)
+
+There are also supporting materials inside the `Documentation` folder.
+
+## Test User Credentials
+
+The original project includes the following example user accounts:
+
+- Super user: `petar.simic@gmail.com` / `password1`
+- Project owner: `zoran.gajic@gmail.com` / `password3`
+- Project manager: `lazar.milojevic@gmail.com` / `password3`
+- Employee: `ana.dacic@gmail.com` / `password3`
+- Viewer: `mina.markovic@gmail.com` / `password3`
